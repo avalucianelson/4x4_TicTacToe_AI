@@ -28,6 +28,12 @@ Execute the following command at the root of the project directory to start the 
 ```bash
 python gui.py
 ```
+
+You may need to use 
+```bash
+python3 gui.py
+```
+
 Use the GUI to make moves against the AI. Click on an empty square to make your move, and the AI will respond on its turn.
 
 ## How It Works 🤖
