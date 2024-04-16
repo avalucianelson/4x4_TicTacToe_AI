@@ -1,6 +1,6 @@
-# Tic-Tac-Toe AI 👾
+# 4x4 Tic-Tac-Toe AI 👾
 
-![Gameplay Demo](gameplaydemo.gif)
+![Gameplay Demo](4x4gameplaydemo.gif)
 
 ## Overview 🎮
 This Tic-Tac-Toe AI project showcases an artificial intelligence implementation using the minimax algorithm with alpha-beta pruning to challenge human players in Tic-Tac-Toe! The project features a Python-based graphical user interface (GUI) for interactive gameplay, offering both an educational insight into AI algorithms and a fun, engaging user experience.
@@ -10,6 +10,7 @@ This Tic-Tac-Toe AI project showcases an artificial intelligence implementation 
 - **Intelligent AI**: Utilizes the minimax algorithm with alpha-beta pruning for efficient and challenging gameplay.
 - **Real-Time Feedback**: Displays the game state dynamically and updates after each move, showing both player and AI moves.
 - **Game Over Detection**: Detects game over conditions (win, lose, or draw) and displays the result accordingly.
+- **Graphing Nodes Expanded**: After you play, you can generate a graph showing the number of nodes the AI expanded at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note the graph generated is log scale!
 
 ## Prerequisites 🔧
 To run this application, you need:
