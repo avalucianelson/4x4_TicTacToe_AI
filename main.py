@@ -43,7 +43,7 @@ def empty_spaces(board):
                 spaces.append((i, j))
     return spaces
 
-def iterative_deepening_minimax(board, max_depth, player):
+def iterative_deepening_minimax(board, max_depth, player, node_count):
     """
     Uses iterative deepening to wrap around the minimax function, gradually increasing the depth searched.
 

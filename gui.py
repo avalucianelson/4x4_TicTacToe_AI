@@ -1,6 +1,21 @@
 import tkinter as tk
 from tkinter import messagebox
 from main import check_winner, empty_spaces, iterative_deepening_minimax
+import matplotlib.pyplot as plt
+
+node_counts = [] # For visualization
+
+def plot_node_counts(node_counts):
+    plt.figure(figsize=(10, 5))
+    plt.plot(node_counts, marker='o', linestyle='-', color='b')
+    plt.title('Number of Nodes Evaluated per Move')
+    plt.xlabel('Move Number')
+    plt.ylabel('Nodes Evaluated')
+    plt.grid(True)
+    plt.show()
+
+def on_plot_button_click():
+    plot_node_counts(node_counts)
 
 def on_click(row, col):
     """
@@ -43,7 +58,9 @@ def ai_move():
     max_depth = min(4, empty_count)  # Limit the max depth to either 4 or the number of empty spaces
     node_count = [0] # Initialize node counter 
 
-    move, final_count = iterative_deepening_minimax(board, max_depth, 'O')
+    move, final_count = iterative_deepening_minimax(board, max_depth, 'O', node_count)
+    node_counts.append(final_count[0])  # Append the count for this move to the list
+
     print("Total nodes evaluated:", final_count[0])  # Print the count for analysis
 
     if move[0] != -1:  # Ensure that a valid move is found
@@ -91,5 +108,10 @@ create_board()
 reset_button = tk.Button(window, text='Reset Game', font=('normal', 20), command=reset_game)
 reset_button.grid(row=4, column=0, columnspan=4)
 
+# Create the plot button
+plot_button = tk.Button(window, text='Plot Node Counts', font=('normal', 20), command=on_plot_button_click)
+plot_button.grid(row=5, column=0, columnspan=4)
+
 # Start the main event loop
 window.mainloop()
+
