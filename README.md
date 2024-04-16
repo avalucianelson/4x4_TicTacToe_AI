@@ -1,8 +1,5 @@
 # 4x4 Tic-Tac-Toe AI 👾
 
-![Gameplay Demo](4x4gameplaydemo.gif)
-
-![Flowchart](tictactoe4x4flowchart.svg)
 ## Overview 🎮
 This Tic-Tac-Toe AI project showcases an artificial intelligence implementation using the minimax algorithm with alpha-beta pruning to challenge human players in Tic-Tac-Toe! The project features a Python-based graphical user interface (GUI) for interactive gameplay, offering both an educational insight into AI algorithms and a fun, engaging user experience.
 
@@ -11,12 +8,14 @@ This Tic-Tac-Toe AI project showcases an artificial intelligence implementation 
 - **Intelligent AI**: Utilizes the minimax algorithm with alpha-beta pruning for efficient and challenging gameplay.
 - **Real-Time Feedback**: Displays the game state dynamically and updates after each move, showing both player and AI moves.
 - **Game Over Detection**: Detects game over conditions (win, lose, or draw) and displays the result accordingly.
-- **Graphing Nodes Expanded**: After you play, you can generate a graph showing the number of nodes the AI expanded at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note the graph generated is log scale!
+- **Graphing Nodes Expanded**: After you play, you can generate a graph showing the number of nodes the AI expanded at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note that the graph generated is log scale!
 
 ## Prerequisites 🔧
 To run this application, you need:
 - Python 3.6 or higher.
 - Tkinter for the GUI (comes pre-installed with Python in most cases).
+- - Matplotlib for generating performance graphs.
+
 
 ## Installation & Usage 🖱️
 Clone the repository to your local machine:
@@ -42,3 +41,11 @@ Use the GUI to make moves against the AI. Click on an empty square to make your 
 - **Minimax Algorithm**: The minimax algorithm is used to simulate decision-making for two-player games. By creating a game tree, it anticipates potential future moves and chooses the optimal path by minimizing the possible loss for a worst-case scenario.
 
 - **Alpha-beta Pruning**: Alpha-beta pruning enhances the minimax algorithm by reducing the number of nodes evaluated, thereby speeding up decision-making by effectively pruning branches that will not influence the final decision.
+
+
+## Flowchart 🦦
+![Flowchart](tictactoe4x4flowchart.svg)
+
+## Quick GIF Demo 👀
+![Gameplay Demo](4x4gameplaydemo.gif)
+
