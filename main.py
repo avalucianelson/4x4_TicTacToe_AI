@@ -8,20 +8,21 @@ def check_winner(board, player):
 
     Returns:
         bool: True if the specified player has won, False otherwise.
-
-    This function supports the learning outcome #ailogic by applying logical conditions to determine the game status.
     """
-    win_conditions = [
-        [board[0][0], board[0][1], board[0][2]],
-        [board[1][0], board[1][1], board[1][2]],
-        [board[2][0], board[2][1], board[2][2]],
-        [board[0][0], board[1][0], board[2][0]],
-        [board[0][1], board[1][1], board[2][1]],
-        [board[0][2], board[1][2], board[2][2]],
-        [board[0][0], board[1][1], board[2][2]],
-        [board[2][0], board[1][1], board[0][2]]
-    ]
-    return [player, player, player] in win_conditions
+    # Check horizontal lines
+    for i in range(4):
+        if all(board[i][j] == player for j in range(4)):
+            return True
+    # Check vertical lines
+    for j in range(4):
+        if all(board[i][j] == player for i in range(4)):
+            return True
+
+    # Check diagonals
+    if all(board[i][i] == player for i in range(4)) or all(board[i][3-i] == player for i in range(4)):
+        return True
+
+    return False
 
 def empty_spaces(board):
     """
@@ -36,15 +37,38 @@ def empty_spaces(board):
     This utility function facilitates the minimax algorithm by providing potential moves, supporting the #aicoding learning outcome.
     """
     spaces = []
-    for i in range(3):
-        for j in range(3):
+    for i in range(4):  
+        for j in range(4):  
             if board[i][j] == " ":
                 spaces.append((i, j))
     return spaces
 
+def iterative_deepening_minimax(board, max_depth, player):
+    """
+    Uses iterative deepening to wrap around the minimax function, gradually increasing the depth searched.
+
+    Parameters:
+        board (list of list of str): The game board.
+        max_depth (int): The maximum depth to search.
+        player (str): The initial player to move, typically 'O' (the AI).
+
+    Returns:
+        list: The best move as a list [row, column, score].
+    """
+    best_move = [-1, -1, -float('inf') if player == 'O' else float('inf')]
+    for depth in range(1, max_depth + 1):
+        current_move = minimax(board, depth, player, -float('inf'), float('inf'))
+        if player == 'O' and current_move[2] > best_move[2]:
+            best_move = current_move  # Update if better move is found for maximizer
+        elif player == 'X' and current_move[2] < best_move[2]:
+            best_move = current_move  # Update if better move is found for minimizer
+        if abs(current_move[2]) == float('inf'):  # Found a winning move
+            break
+    return best_move
+
 def minimax(board, depth, player, alpha, beta):
     """
-    Recursive implementation of the minimax algorithm to determine the optimal move for 'O' or 'X' in Tic-Tac-Toe.
+    Recursive implementation of the minimax algorithm with alpha-beta pruning.
 
     Parameters:
         board (list of list of str): The game board.
@@ -55,49 +79,34 @@ def minimax(board, depth, player, alpha, beta):
 
     Returns:
         list: The best move as a list [row, column, score].
-
-    This function demonstrates #search and #algorithms by using recursive tree search techniques and optimizing with alpha-beta pruning.
     """
-    # Initialize the best move with default values
+    if depth == 0 or check_winner(board, "O") or check_winner(board, "X"):
+        return [-1, -1, evaluate(board)]
+
     if player == "O":
         best = [-1, -1, -float('inf')]
     else:
         best = [-1, -1, float('inf')]
 
-    # Check if the game has reached the maximum depth or if there is a winner
-    if depth == 0 or check_winner(board, "O") or check_winner(board, "X"):
-        score = evaluate(board)
-        return [-1, -1, score]
-
-    # Iterate through each empty space on the board
     for cell in empty_spaces(board):
         x, y = cell
-        # Place the current player's symbol on the empty space
         board[x][y] = player
-        # Recursively call the minimax function for the opponent player
         score = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta)
-        # Remove the current player's symbol from the board
         board[x][y] = " "
-        # Update the move coordinates in the score list
         score[0], score[1] = x, y
 
-        # Update the best move based on the player's turn
         if player == "O":
             if score[2] > best[2]:
                 best = score
-            # Update the alpha value for the maximizing player
-            alpha = max(alpha, best[2])
+            alpha = max(alpha, score[2])
         else:
             if score[2] < best[2]:
                 best = score
-            # Update the beta value for the minimizing player
-            beta = min(beta, best[2])
-        
-        # Perform alpha-beta pruning if beta is less than or equal to alpha
+            beta = min(beta, score[2])
+
         if beta <= alpha:
             break
 
-    # Return the best move
     return best
 
 def evaluate(board):
@@ -113,7 +122,9 @@ def evaluate(board):
     This evaluation function directly contributes to the #modeling learning outcome by providing a basic heuristic for the minimax decision-making process.
     """
     if check_winner(board, "O"):
-        return +1
-    if check_winner(board, "X"):
-        return -1
-    return 0
+        return +1  # O wins
+    elif check_winner(board, "X"):
+        return -1  # X wins
+    else:
+        return 0   # No winner yet
+
