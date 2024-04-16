@@ -1,9 +1,3 @@
-def print_board(board):
-    """Prints the current state of the Tic-Tac-Toe board."""
-    for row in board:
-        print(" | ".join(row))
-        print("-" * 5)
-
 def check_winner(board, player):
     """Checks if a player has won. Returns True if a player has won, False otherwise."""
     win_conditions = [
@@ -66,35 +60,3 @@ def evaluate(board):
     if check_winner(board, "X"):
         return -1
     return 0
-
-def main():
-    """Main game loop for running the Tic-Tac-Toe game."""
-    board = [[" " for _ in range(3)] for _ in range(3)]
-    player_turn = "X"
-
-    while True:
-        print_board(board)
-        if check_winner(board, "O"):
-            print("O wins!")
-            break
-        elif check_winner(board, "X"):
-            print("X wins!")
-            break
-        elif len(empty_spaces(board)) == 0:
-            print("Tie!")
-            break
-
-        if player_turn == "X":
-            print("Player X's turn:")
-            x, y = map(int, input("Enter row and column numbers to place X (e.g., 0 1): ").split())
-            board[x][y] = "X"
-            player_turn = "O"
-        else:
-            print("AI's turn:")
-            move = minimax(board, len(empty_spaces(board)), "O", -float('inf'), float('inf'))
-            x, y = move[0], move[1]
-            board[x][y] = "O"
-            player_turn = "X"
-
-if __name__ == "__main__":
-    main()

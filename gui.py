@@ -4,9 +4,11 @@ from main import check_winner, minimax, empty_spaces
 
 def on_click(row, col):
     global player_turn
-    if buttons[row][col]['text'] == "" and check_winner(board, "O") is False and check_winner(board, "X") is False:
+    if buttons[row][col]['text'] == "" and not check_winner(board, "O") and not check_winner(board, "X"):
         buttons[row][col]['text'] = player_turn
         board[row][col] = player_turn
+        buttons[row][col].update_idletasks()  # Force the button to update its display
+
         if check_winner(board, player_turn):
             messagebox.showinfo("Game Over", f"{player_turn} wins!")
             reset_game()
