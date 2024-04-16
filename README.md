@@ -1,6 +1,6 @@
 # Tic-Tac-Toe AI 👾
 
-![Gameplay Demo](2024-04-16 15.03.12.gif)
+![Gameplay Demo](gameplaydemo.gif)
 
 ## Overview 🎮
 This Tic-Tac-Toe AI project showcases an artificial intelligence implementation using the minimax algorithm with alpha-beta pruning to challenge human players in Tic-Tac-Toe! The project features a Python-based graphical user interface (GUI) for interactive gameplay, offering both an educational insight into AI algorithms and a fun, engaging user experience.
