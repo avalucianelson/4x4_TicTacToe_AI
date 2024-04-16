@@ -118,13 +118,37 @@ def evaluate(board):
 
     Returns:
         int: The heuristic value of the board from the perspective of 'O'.
-
-    This evaluation function directly contributes to the #modeling learning outcome by providing a basic heuristic for the minimax decision-making process.
     """
-    if check_winner(board, "O"):
-        return +1  # O wins
-    elif check_winner(board, "X"):
-        return -1  # X wins
-    else:
-        return 0   # No winner yet
+    def evaluate_line(line):
+        score = 0
+        count_O = line.count('O')
+        count_X = line.count('X')
+        empty = line.count(' ')
+
+        if count_O == 4:
+            score += 1000  # Winning condition
+        elif count_X == 4:
+            score -= 1000  # Opponent winning condition
+        elif count_O == 3 and empty == 1:
+            score += 100  # Winning next move
+        elif count_X == 3 and empty == 1:
+            score -= 100  # Block opponent winning
+        elif count_O == 2 and empty == 2:
+            score += 10  # Potential setup for win
+        elif count_X == 2 and empty == 2:
+            score -= 10  # Block opponent setup
+        return score
+
+    total_score = 0
+    # Check all rows and columns
+    for i in range(4):
+        total_score += evaluate_line([board[i][j] for j in range(4)])  # Evaluate rows
+        total_score += evaluate_line([board[j][i] for j in range(4)])  # Evaluate columns
+
+    # Check diagonals
+    total_score += evaluate_line([board[i][i] for i in range(4)])
+    total_score += evaluate_line([board[i][3-i] for i in range(4)])
+
+    return total_score
+
 
