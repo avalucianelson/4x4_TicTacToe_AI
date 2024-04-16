@@ -42,6 +42,7 @@ Use the GUI to make moves against the AI. Click on an empty square to make your 
 
 - **Alpha-beta Pruning**: Alpha-beta pruning enhances the minimax algorithm by reducing the number of nodes evaluated, thereby speeding up decision-making by effectively pruning branches that will not influence the final decision.
 
+# Visualizations 👓
 
 ## Flowchart 🦦
 Here's a flowchart that visualizes the program generally. 
@@ -50,4 +51,8 @@ Here's a flowchart that visualizes the program generally.
 ## Quick GIF Demo 👀
 I recommend you play my game! But here's a quick peek at what it looks like, in case you're curious. 
 ![Gameplay Demo](4x4gameplaydemo.gif)
+
+## Example Graph 
+Here's a look at an example graph visualizing the number of nodes expanded over 10 games. As you can see, there's a significant difference in the number of nodes exapanded with alpha beta pruning vs without. Be sure to note this is a log scale - so the difference between the blue and red lines is bigger than it seems! 
+![Example Graph](example_nodesexpanded_graph.png)
 
