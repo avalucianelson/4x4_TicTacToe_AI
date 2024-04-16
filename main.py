@@ -55,18 +55,20 @@ def iterative_deepening_minimax(board, max_depth, player):
     Returns:
         list: The best move as a list [row, column, score].
     """
+    node_count = [0]  # Initialize node counter
+
     best_move = [-1, -1, -float('inf') if player == 'O' else float('inf')]
     for depth in range(1, max_depth + 1):
-        current_move = minimax(board, depth, player, -float('inf'), float('inf'))
+        current_move, node_count = minimax(board, depth, player, -float('inf'), float('inf'), node_count)
         if player == 'O' and current_move[2] > best_move[2]:
             best_move = current_move  # Update if better move is found for maximizer
         elif player == 'X' and current_move[2] < best_move[2]:
             best_move = current_move  # Update if better move is found for minimizer
         if abs(current_move[2]) == float('inf'):  # Found a winning move
             break
-    return best_move
+    return best_move, node_count
 
-def minimax(board, depth, player, alpha, beta):
+def minimax(board, depth, player, alpha, beta, count):
     """
     Recursive implementation of the minimax algorithm with alpha-beta pruning.
 
@@ -80,34 +82,38 @@ def minimax(board, depth, player, alpha, beta):
     Returns:
         list: The best move as a list [row, column, score].
     """
+    count[0] += 1  # Increment the node count
+
+    # Base case: if the maximum depth is reached or a player has won, return the evaluated score
     if depth == 0 or check_winner(board, "O") or check_winner(board, "X"):
-        return [-1, -1, evaluate(board)]
+        return [-1, -1, evaluate(board)], count
 
     if player == "O":
-        best = [-1, -1, -float('inf')]
+        best = [-1, -1, -float('inf')]  # Initialize the best move for the maximizing player
     else:
-        best = [-1, -1, float('inf')]
+        best = [-1, -1, float('inf')]  # Initialize the best move for the minimizing player
 
+    # Iterate through all empty spaces on the board
     for cell in empty_spaces(board):
         x, y = cell
-        board[x][y] = player
-        score = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta)
-        board[x][y] = " "
-        score[0], score[1] = x, y
+        board[x][y] = player  # Make a move
+        score, count = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta, count)  # Recursively call minimax for the next level
+        board[x][y] = " "  # Undo the move
+        score[0], score[1] = x, y  # Update the move coordinates in the score
 
         if player == "O":
             if score[2] > best[2]:
-                best = score
-            alpha = max(alpha, score[2])
+                best = score  # Update the best move for the maximizing player
+            alpha = max(alpha, score[2])  # Update the alpha value
         else:
             if score[2] < best[2]:
-                best = score
-            beta = min(beta, score[2])
+                best = score  # Update the best move for the minimizing player
+            beta = min(beta, score[2])  # Update the beta value
 
         if beta <= alpha:
-            break
+            break  # Alpha-beta pruning: stop searching if beta is less than or equal to alpha
 
-    return best
+    return best, count  # Return the best move and the node count
 
 def evaluate(board):
     """

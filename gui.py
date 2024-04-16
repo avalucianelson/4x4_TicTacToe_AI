@@ -41,11 +41,14 @@ def ai_move():
     # Dynamically adjust max depth based on the number of empty spaces
     empty_count = len(empty_spaces(board))
     max_depth = min(4, empty_count)  # Limit the max depth to either 4 or the number of empty spaces
+    node_count = [0] # Initialize node counter 
 
-    move = iterative_deepening_minimax(board, max_depth, 'O')
+    move, final_count = iterative_deepening_minimax(board, max_depth, 'O')
+    print("Total nodes evaluated:", final_count[0])  # Print the count for analysis
+
     if move[0] != -1:  # Ensure that a valid move is found
         buttons[move[0]][move[1]].invoke()  # Simulate clicking the button for the AI's move
-
+    
 def reset_game():
     """
     Function to reset the game.
