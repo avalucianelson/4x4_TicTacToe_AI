@@ -1,3 +1,9 @@
+
+"""
+This file contains the logic for my implementation of a tic-tac-toe game 
+using the minimax algorithm with alpha-beta pruning.
+"""
+
 def check_winner(board, player):
     """
     Checks all possible winning conditions to determine if the specified player has won.
@@ -37,29 +43,33 @@ def empty_spaces(board):
     This utility function facilitates the minimax algorithm by providing potential moves, supporting the #aicoding learning outcome.
     """
     spaces = []
-    for i in range(4):  
-        for j in range(4):  
-            if board[i][j] == " ":
-                spaces.append((i, j))
+    for i in range(4):  # Iterate over rows
+        for j in range(4):  # Iterate over columns
+            if board[i][j] == " ":  # Check if space is empty
+                spaces.append((i, j))  # Add coordinates to list of empty spaces
     return spaces
 
-def iterative_deepening_minimax(board, max_depth, player, node_count):
+def iterative_deepening_minimax(board, max_depth, player, node_count, use_pruning):
     """
     Uses iterative deepening to wrap around the minimax function, gradually increasing the depth searched.
+    Optionally uses alpha-beta pruning based on the 'use_pruning' parameter.
 
     Parameters:
         board (list of list of str): The game board.
         max_depth (int): The maximum depth to search.
         player (str): The initial player to move, typically 'O' (the AI).
+        node_count (list): A list containing a single integer to track the number of nodes evaluated.
+        use_pruning (bool): Whether to use alpha-beta pruning.
 
     Returns:
-        list: The best move as a list [row, column, score].
+        tuple: Best move as a list [row, column, score] and the updated node count.
     """
-    node_count = [0]  # Initialize node counter
-
-    best_move = [-1, -1, -float('inf') if player == 'O' else float('inf')]
+    best_move = [-1, -1, -float('inf') if player == 'O' else float('inf')]  # Initialize the best move with appropriate initial score
     for depth in range(1, max_depth + 1):
-        current_move, node_count = minimax(board, depth, player, -float('inf'), float('inf'), node_count)
+        if use_pruning:
+            current_move, node_count = minimax(board, depth, player, -float('inf'), float('inf'), node_count, use_pruning)  # Use alpha-beta pruning
+        else:
+            current_move, node_count = minimax(board, depth, player, None, None, node_count, use_pruning)  # Ignore alpha-beta values
         if player == 'O' and current_move[2] > best_move[2]:
             best_move = current_move  # Update if better move is found for maximizer
         elif player == 'X' and current_move[2] < best_move[2]:
@@ -68,9 +78,10 @@ def iterative_deepening_minimax(board, max_depth, player, node_count):
             break
     return best_move, node_count
 
-def minimax(board, depth, player, alpha, beta, count):
+
+def minimax(board, depth, player, alpha, beta, count, use_pruning=True):
     """
-    Recursive implementation of the minimax algorithm with alpha-beta pruning.
+    Recursive implementation of the minimax algorithm with optional alpha-beta pruning.
 
     Parameters:
         board (list of list of str): The game board.
@@ -78,42 +89,46 @@ def minimax(board, depth, player, alpha, beta, count):
         player (str): 'O' or 'X', indicating the current player.
         alpha (float): The best value that the maximizing player can guarantee at that level or above.
         beta (float): The best value that the minimizing player can guarantee at that level or above.
+        count (list): Node count accumulator.
+        use_pruning (bool): Flag to enable/disable alpha-beta pruning.
 
     Returns:
-        list: The best move as a list [row, column, score].
+        tuple: The best move as a list [row, column, score], and updated node count.
     """
     count[0] += 1  # Increment the node count
 
-    # Base case: if the maximum depth is reached or a player has won, return the evaluated score
     if depth == 0 or check_winner(board, "O") or check_winner(board, "X"):
+        # Base case: reached maximum depth or a player has won
         return [-1, -1, evaluate(board)], count
 
     if player == "O":
-        best = [-1, -1, -float('inf')]  # Initialize the best move for the maximizing player
+        best = [-1, -1, -float('inf')]
     else:
-        best = [-1, -1, float('inf')]  # Initialize the best move for the minimizing player
+        best = [-1, -1, float('inf')]
 
-    # Iterate through all empty spaces on the board
     for cell in empty_spaces(board):
         x, y = cell
-        board[x][y] = player  # Make a move
-        score, count = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta, count)  # Recursively call minimax for the next level
-        board[x][y] = " "  # Undo the move
-        score[0], score[1] = x, y  # Update the move coordinates in the score
+        board[x][y] = player
+        score, count = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta, count, use_pruning)
+        board[x][y] = " "
+        score[0], score[1] = x, y
 
         if player == "O":
             if score[2] > best[2]:
-                best = score  # Update the best move for the maximizing player
-            alpha = max(alpha, score[2])  # Update the alpha value
+                best = score
+            if use_pruning:
+                alpha = max(alpha, best[2])
         else:
             if score[2] < best[2]:
-                best = score  # Update the best move for the minimizing player
-            beta = min(beta, score[2])  # Update the beta value
+                best = score
+            if use_pruning:
+                beta = min(beta, best[2])
 
-        if beta <= alpha:
-            break  # Alpha-beta pruning: stop searching if beta is less than or equal to alpha
+        if use_pruning and alpha >= beta:
+            # Alpha-beta pruning: stop searching if alpha >= beta
+            break
 
-    return best, count  # Return the best move and the node count
+    return best, count
 
 def evaluate(board):
     """
