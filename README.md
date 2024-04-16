@@ -14,7 +14,7 @@ This Tic-Tac-Toe AI project showcases an artificial intelligence implementation 
 To run this application, you need:
 - Python 3.6 or higher.
 - Tkinter for the GUI (comes pre-installed with Python in most cases).
-- Matplotlib for generating performance graphs.
+- Matplotlib and Numpy for generating performance graphs.
 
 
 ## Installation & Usage 🖱️
