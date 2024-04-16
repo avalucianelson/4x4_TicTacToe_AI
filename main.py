@@ -102,33 +102,33 @@ def minimax(board, depth, player, alpha, beta, count, use_pruning=True):
         return [-1, -1, evaluate(board)], count
 
     if player == "O":
-        best = [-1, -1, -float('inf')]
+        best = [-1, -1, -float('inf')]  # Initialize the best move for the maximizing player
     else:
-        best = [-1, -1, float('inf')]
+        best = [-1, -1, float('inf')]  # Initialize the best move for the minimizing player
 
     for cell in empty_spaces(board):
         x, y = cell
-        board[x][y] = player
-        score, count = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta, count, use_pruning)
-        board[x][y] = " "
-        score[0], score[1] = x, y
+        board[x][y] = player  # Make a move
+        score, count = minimax(board, depth - 1, 'O' if player == 'X' else 'X', alpha, beta, count, use_pruning)  # Recursively call minimax for the next level
+        board[x][y] = " " 
+        score[0], score[1] = x, y  # Update the move coordinates in the score
 
         if player == "O":
             if score[2] > best[2]:
-                best = score
+                best = score # Update the best move for the maximizing player
             if use_pruning:
-                alpha = max(alpha, best[2])
+                alpha = max(alpha, best[2]) # Update the alpha value
         else:
             if score[2] < best[2]:
-                best = score
+                best = score # Update the best move for the minimizing player
             if use_pruning:
-                beta = min(beta, best[2])
+                beta = min(beta, best[2]) # Update the beta value
 
         if use_pruning and alpha >= beta:
             # Alpha-beta pruning: stop searching if alpha >= beta
             break
 
-    return best, count
+    return best, count # Return the best move and the node count
 
 def evaluate(board):
     """
