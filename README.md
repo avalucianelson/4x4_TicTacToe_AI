@@ -1,14 +1,14 @@
 # 4x4 Tic-Tac-Toe AI 👾
 
 ## Overview 🎮
-This Tic-Tac-Toe AI project showcases an artificial intelligence implementation using the minimax algorithm with alpha-beta pruning to challenge human players in Tic-Tac-Toe! The project features a Python-based graphical user interface (GUI) for interactive gameplay, offering both an educational insight into AI algorithms and a fun, engaging user experience.
+This Tic-Tac-Toe AI project showcases an artificial intelligence implementation using the minimax algorithm with alpha-beta pruning to challenge human players in Tic-Tac-Toe! The project features a Python-based graphical user interface (GUI) for interactive gameplay.
 
 ## Features ✨
 - **Interactive GUI**: Play against an AI directly through a user-friendly graphical interface.
 - **Intelligent AI**: Utilizes the minimax algorithm with alpha-beta pruning for efficient and challenging gameplay.
 - **Real-Time Feedback**: Displays the game state dynamically and updates after each move, showing both player and AI moves.
 - **Game Over Detection**: Detects game over conditions (win, lose, or draw) and displays the result accordingly.
-- **Graphing Nodes evaluated**: After you play, you can generate a graph showing the number of nodes the AI evaluated at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note that the graph generated is log scale!
+- **Graphing Nodes Evaluated**: After you play, you can generate a graph showing the number of nodes the AI evaluated at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note that the graph generated is log scale!
 
 ## Prerequisites 🔧
 To run this application, you need:
@@ -35,7 +35,7 @@ You may need to use
 python3 gui.py
 ```
 
-Use the GUI to make moves against the AI. Click on an empty square to make your move, and the AI will respond on its turn.
+Use the GUI to make moves against the AI. Click on an empty square to make your move, and the AI will respond on its turn. After you're done playing, a pop-up will let you know who won (O being the AI, X being you the human). If you'd like, you can click the button to "Plot Node Counts" and see a graph of the number of nodes evaluated by the AI, both with and without alpha-beta pruning. Please note that you'll have to click the button each time you'd like an updated graph, and restarting the program will mean your graph will not be able to update further.
 
 ## How It Works 🤖
 - **Minimax Algorithm**: The minimax algorithm is used to simulate decision-making for two-player games. By creating a game tree, it anticipates potential future moves and chooses the optimal path by minimizing the possible loss for a worst-case scenario.
