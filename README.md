@@ -15,7 +15,11 @@ To run this application, you need:
 - Python 3.6 or higher.
 - Tkinter for the GUI (comes pre-installed with Python in most cases).
 - Matplotlib and Numpy for generating performance graphs.
+To ensure all dependencies are installed, you can use the following pip command:
 
+```bash
+pip install matplotlib numpy
+```
 
 ## Installation & Usage 🖱️
 Clone the repository to your local machine:
@@ -30,12 +34,16 @@ Execute the following command at the root of the project directory to start the 
 python gui.py
 ```
 
-You may need to use 
+Or, if your system requires: 
 ```bash
 python3 gui.py
 ```
 
 Use the GUI to make moves against the AI. Click on an empty square to make your move, and the AI will respond on its turn. After you're done playing, a pop-up will let you know who won (O being the AI, X being you the human). If you'd like, you can click the button to "Plot Node Counts" and see a graph of the number of nodes evaluated by the AI, both with and without alpha-beta pruning. Please note that you'll have to click the button each time you'd like an updated graph, and restarting the program will mean your graph will not be able to update further.
+
+**Note:**
+If you encounter any issues with Tkinter not being recognized, it may be because it's not installed with your Python installation (common in some virtual environments or specific Python installations on Linux). You can typically install it via your package manager (for Linux) or by ensuring you have the official version of Python installed which includes Tkinter.
+
 
 ## How It Works 🤖
 - **Minimax Algorithm**: The minimax algorithm is used to simulate decision-making for two-player games. By creating a game tree, it anticipates potential future moves and chooses the optimal path by minimizing the possible loss for a worst-case scenario.
@@ -59,3 +67,6 @@ Here's a look at an example graph visualizing the number of nodes evaluated over
 
 ![Example Graph](example_nodesexpanded_graph.png)
 
+❤️
+Happy tic-tac-toeing! 
+Xoxo (get it?)
