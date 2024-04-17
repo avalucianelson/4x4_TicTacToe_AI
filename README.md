@@ -8,7 +8,7 @@ This Tic-Tac-Toe AI project showcases an artificial intelligence implementation 
 - **Intelligent AI**: Utilizes the minimax algorithm with alpha-beta pruning for efficient and challenging gameplay.
 - **Real-Time Feedback**: Displays the game state dynamically and updates after each move, showing both player and AI moves.
 - **Game Over Detection**: Detects game over conditions (win, lose, or draw) and displays the result accordingly.
-- **Graphing Nodes Expanded**: After you play, you can generate a graph showing the number of nodes the AI expanded at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note that the graph generated is log scale!
+- **Graphing Nodes evaluated**: After you play, you can generate a graph showing the number of nodes the AI evaluated at each move, both with and without alpha beta pruning. This demonstrates the huge difference in efficiency. Make sure to note that the graph generated is log scale!
 
 ## Prerequisites 🔧
 To run this application, you need:
@@ -55,7 +55,7 @@ I recommend you play my game! But here's a quick peek at what it looks like, in 
 ![Gameplay Demo](4x4gameplaydemo.gif)
 
 ## Example Graph 📉
-Here's a look at an example graph visualizing the number of nodes expanded over 10 games. As you can see, there's a significant difference in the number of nodes exapanded with alpha beta pruning vs without. Be sure to note this is a log scale - so the difference between the blue and red lines is bigger than it seems! 
+Here's a look at an example graph visualizing the number of nodes evaluated over 10 games. As you can see, there's a significant difference in the number of nodes exapanded with alpha beta pruning vs without. Be sure to note this is a log scale - so the difference between the blue and red lines is bigger than it seems! 
 
-![Example Graph](example_nodesexpanded_graph.png)
+![Example Graph](example_nodesevaluated_graph.png)
 
