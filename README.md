@@ -57,5 +57,5 @@ I recommend you play my game! But here's a quick peek at what it looks like, in 
 ## Example Graph 📉
 Here's a look at an example graph visualizing the number of nodes evaluated over 10 games. As you can see, there's a significant difference in the number of nodes exapanded with alpha beta pruning vs without. Be sure to note this is a log scale - so the difference between the blue and red lines is bigger than it seems! 
 
-![Example Graph](example_nodesevaluated_graph.png)
+![Example Graph](example_nodesexpanded_graph.png)
 
