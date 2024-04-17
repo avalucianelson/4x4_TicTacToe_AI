@@ -67,6 +67,6 @@ Here's a look at an example graph visualizing the number of nodes evaluated over
 
 ![Example Graph](example_nodesexpanded_graph.png)
 
-❤️
+
 Happy tic-tac-toeing! 
-Xoxo (get it?)
+Xoxo ❤️ (get it?)
